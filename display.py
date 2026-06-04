@@ -148,8 +148,11 @@ class RadarDisplay:
     def _draw_status_panel(self, height: int, width: int) -> None:
         sample_age = max(0.0, time.time() - self.last_sample_time)
         hosts = len(self.smoothing)
-        panel_width = min(34, max(0, width - 4))
-        if panel_width <= 0:
+        panel_x = 0
+        content_x = 2
+        panel_width = min(38, width)
+        content_width = max(0, panel_width - content_x)
+        if content_width <= 0:
             return
         age_label = "<1s" if sample_age < 1 else f"{int(sample_age)}s"
         lines = [
@@ -164,11 +167,11 @@ class RadarDisplay:
         if error:
             lines.append(f"ss: {str(error)[:28]}")
         try:
-            for row in range(1, 2 + len(lines)):
-                self.stdscr.addstr(row, 2, " " * panel_width, curses.color_pair(6))
-            self.stdscr.addstr(1, 2, " Status ".ljust(panel_width), curses.A_BOLD | curses.color_pair(6))
+            for row in range(1, min(height - 1, 3 + len(lines))):
+                self.stdscr.addstr(row, panel_x, " " * panel_width, curses.color_pair(6))
+            self.stdscr.addstr(1, content_x, " Status ".ljust(content_width), curses.A_BOLD | curses.color_pair(6))
             for index, line in enumerate(lines):
-                self.stdscr.addstr(2 + index, 2, line[:panel_width].ljust(panel_width), curses.color_pair(6))
+                self.stdscr.addstr(2 + index, content_x, line[:content_width].ljust(content_width), curses.color_pair(6))
         except curses.error:
             return
 
