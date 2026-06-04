@@ -106,6 +106,10 @@ class RadarDisplay:
         init_pair(4, palette["high"][0], palette.get("bg"))
         init_pair(5, palette["unknown"][0], palette.get("bg"))
         init_pair(6, palette["text"][0], palette.get("bg"))
+        try:
+            self.stdscr.bkgd(" ", curses.color_pair(6))
+        except curses.error:
+            pass
 
     def _build_glyphs(self) -> dict[int, str]:
         try:
