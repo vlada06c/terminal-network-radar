@@ -93,7 +93,6 @@ def color_name_to_const(name: Optional[str]) -> int:
         "yellow": curses.COLOR_YELLOW,
         "blue": curses.COLOR_BLUE,
         "magenta": curses.COLOR_MAGENTA,
-        "purple": curses.COLOR_MAGENTA,
         "cyan": curses.COLOR_CYAN,
         "white": curses.COLOR_WHITE,
         "default": -1,
