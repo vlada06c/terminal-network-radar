@@ -103,7 +103,7 @@ class SimulationCollector:
         self._lock = threading.Lock()
         self._rng = random.Random(12345)
         self._counts = Counter()
-        self._last = time.time()
+        self._last = time.time() - settings.sample_interval
         self._supported = True
         self._simulated = True
 
